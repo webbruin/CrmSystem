@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>机构表</title>
+
+  <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
+  <link href="/resources/css/common.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="table-responsive" id="main">
+  <div id="toolbar">
+    <!--<a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a>-->
+    <!--<a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a>-->
+
+    <a class="waves-effect waves-button" id="addInst" href="#add-inst" role="button" class="btn" data-toggle="modal"><i class="zmdi zmdi-plus"></i> 新增机构</a>
+    <a class="waves-effect waves-button" id="modInst" href="#" role="button" class="btn" data-toggle="modal" onclick="updateAction()"><i class="zmdi zmdi-plus"></i> 编辑机构</a>
+    <a class="waves-effect waves-button" id="delInst" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除机构</a>
+  </div>
+  <table id="table"></table>
+</div>
+<!-- 新增 -->
+<div class="modal fade" id="add-inst" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          新增机构
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline instForm">
+          <div>
+              <span>
+                <label>机构编号</label>
+                <input id="addInstCode" type="text" class="form-control" required>
+              </span>
+            <span>
+                <label>机构名称</label>
+                <input id="addInstName" type="text" class="form-control" required>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>上级机构名称</label>
+                <select id="addSuperInstName" class="form-control select_jigou"></select>
+              </span>
+            <span>
+                <label>机构等级</label>
+                <select id="addInstLevel" class="form-control select_dengji" name="instLevel" required></select>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>机构类型</label>
+                <select id="addInstType" class="form-control select_leixing" name="instType" required></select>
+              </span>
+            <span>
+                <label>机构状态</label>
+                <select id="addInstStatus" class="form-control select_zhuangtai" name="instStatus" required></select>
+              </span>
+          </div>
+
+          <div>
+              <span>
+                <label>机构描述</label>
+                <input id="addInstDescribe" type="text" class="form-control">
+              </span>
+            <span>
+                <label>机构地址</label>
+                <input id="addInstAddr" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>机构邮编</label>
+                <input id="addInstPost" type="text" class="form-control">
+              </span>
+            <span>
+                <label>所属省编号</label>
+                <input id="addStateCode" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>所属城市编号</label>
+                <input id="addCityCode" type="text" class="form-control">
+              </span>
+            <span>
+                <label>机构英文名称</label>
+                <input id="addEnInstName" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>机构英文地址</label>
+                <input id="addEnInstAddr" type="text" class="form-control">
+              </span>
+            <span>
+                <label>机构电话</label>
+                <input id="addInstTel" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>机构传真</label>
+                <input id="addInstFax" type="text" class="form-control">
+              </span>
+            <span>
+                <label>机构邮箱</label>
+                <input id="addInstEmail" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>联系人</label>
+                <input id="addContact" type="text" class="form-control">
+              </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Added">保存</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 新增 -->
+
+<!-- 修改 -->
+<div class="modal fade" id="mod-inst" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">
+            修改机构
+          </h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" class="form-inline instForm">
+            <div>
+              <span>
+                <label>机构编号</label>
+                <input id="modInstCode" type="text" class="form-control" disabled>
+              </span>
+              <span>
+                <label>机构名称</label>
+                <input id="modInstName" type="text" class="form-control" required>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>上级机构名称</label>
+                <select id="modSuperInstName" class="form-control select_jigou"></select>
+              </span>
+              <span>
+                <label>机构等级</label>
+                <select id="modInstLevel" class="form-control select_dengji" name="instLevel" required></select>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>机构类型</label>
+                <select id="modInstType" class="form-control select_leixing" name="instType" required></select>
+              </span>
+              <span>
+                <label>机构状态</label>
+                <select id="modInstStatus" class="form-control select_zhuangtai" name="instStatus" required></select>
+              </span>
+            </div>
+
+            <div>
+              <span>
+                <label>机构描述</label>
+                <input id="modInstDescribe" type="text" class="form-control">
+              </span>
+              <span>
+                <label>机构地址</label>
+                <input id="modInstAddr" type="text" class="form-control">
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>机构邮编</label>
+                <input id="modInstPost" type="text" class="form-control">
+              </span>
+              <span>
+                <label>所属省编号</label>
+                <input id="modStateCode" type="text" class="form-control">
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>所属城市编号</label>
+                <input id="modCityCode" type="text" class="form-control">
+              </span>
+              <span>
+                <label>机构英文名称</label>
+                <input id="modEnInstName" type="text" class="form-control">
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>机构英文地址</label>
+                <input id="modEnInstAddr" type="text" class="form-control">
+              </span>
+              <span>
+                <label>机构电话</label>
+                <input id="modInstTel" type="text" class="form-control">
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>机构传真</label>
+                <input id="modInstFax" type="text" class="form-control">
+              </span>
+              <span>
+                <label>机构邮箱</label>
+                <input id="modInstEmail" type="text" class="form-control">
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>联系人</label>
+                <input id="modContact" type="text" class="form-control">
+              </span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Modify">保存</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+<!-- 修改 -->
+
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/path.js"></script>
+<script src="js/fn.js"></script>
+
+</body>
+</html>

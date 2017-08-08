@@ -1,0 +1,35 @@
+.tree {  color:#46CFB0;margin-top: 20px;display: inline-block;padding-right: 50px;}
+.tree li,
+.tree li > a,
+.tree li > span {
+  padding: 4pt 2pt;
+  border-radius: 4px;
+}
+.tree,.tree ul{
+  margin-left: 30px;
+}
+
+.tree li a {
+  color:#46CFB0;
+  text-decoration: none;
+  line-height: 20pt;
+  border-radius: 4px;
+}
+
+.tree li a:hover {
+  background-color: #34BC9D;
+  color: #fff;
+}
+
+.active {
+  background-color: #34495E;
+  color: white;
+}
+
+.active a {
+  color: #fff;
+}
+
+.tree li a.active:hover {
+  background-color: #34BC9D;
+}

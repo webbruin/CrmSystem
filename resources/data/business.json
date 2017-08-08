@@ -1,0 +1,19 @@
+[
+  {
+    "title":"limitType",
+    "content":[
+      {"id":"1","text":"月"},
+      {"id":"3","text":"日"}
+    ]
+  },
+  {
+    "title":"repaymentType",
+    "content":[
+      {"id":"1","text":"一次性还本付息"},
+      {"id":"2","text":"按月等额本息"},
+      {"id":"3","text":"按月付息到期还本"},
+      {"id":"4","text":"按季等额本息"},
+      {"id":"5","text":"按季付息到期还本"}
+    ]
+  }
+]

@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>后台客户管理系统</title>
+  <link href="favicon.ico" rel="icon" type="image/x-icon" />
+
+	<link href="resources/plugins/fullPage/jquery.fullPage.css" rel="stylesheet"/>
+	<link href="resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+	<link href="resources/css/admin.css" rel="stylesheet"/>
+
+	<link rel="stylesheet" href="resources/js/jquery.treemenu.css" rel="stylesheet">
+
+	<style>
+	/** skins **/
+	#zheng-upms-server #header {background: #29A176;}
+	#zheng-upms-server .content_tab{background: #29A176;}
+	#zheng-upms-server .s-profile>a{background: url(resources/images/zheng-upms.png) left top no-repeat;}
+
+	#zheng-cms-admin #header {background: #455EC5;}
+	#zheng-cms-admin .content_tab{background: #455EC5;}
+	#zheng-cms-admin .s-profile>a{background: url(resources/images/zheng-cms.png) left top no-repeat;}
+
+	#zheng-pay-admin #header {background: #F06292;}
+	#zheng-pay-admin .content_tab{background: #F06292;}
+	#zheng-pay-admin .s-profile>a{background: url(resources/images/zheng-pay.png) left top no-repeat;}
+
+	#zheng-ucenter-home #header {background: #6539B4;}
+	#zheng-ucenter-home .content_tab{background: #6539B4;}
+	#zheng-ucenter-home .s-profile>a{background: url(resources/images/zheng-ucenter.png) left top no-repeat;}
+
+	#zheng-oss-web #header {background: #0B8DE5;}
+	#zheng-oss-web .content_tab{background: #0B8DE5;}
+	#zheng-oss-web .s-profile>a{background: url(resources/images/zheng-oss.png) left top no-repeat;}
+
+	#test #header {background: test;}
+	#test .content_tab{background: test;}
+	#test .s-profile>a{background: url(test) left top no-repeat;}
+
+
+
+	.tree {  color:#46CFB0;width:268px;}
+	.tree li,
+	.tree li > a,
+	.tree li > span {
+	    padding: 4pt 2pt;
+	    border-radius: 4px;
+	}
+
+	.tree li a {
+	   color:#46CFB0;
+	    text-decoration: none;
+	    line-height: 20pt;
+	    border-radius: 4px;
+	}
+
+	.tree li a:hover {
+	    background-color: #34BC9D;
+	    color: #fff;
+	}
+
+	.active {
+	    background-color: #34495E;
+	    color: white;
+	}
+
+	.active a {
+	    color: #fff;
+	}
+
+	.tree li a.active:hover {
+	    background-color: #34BC9D;
+	}
+
+
+	</style>
+</head>
+<body>
+<!-- 修改密码 -->
+<div class="modal fade" id="change-pwd" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          修改密码
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="changePassWord">
+          <div>
+            <span>
+              <label>旧密码</label>
+              <input id="oldPwd" type="password" class="form-control">
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>新密码</label>
+              <input id="newPwd" type="password" class="form-control">
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>重复输入新密码</label>
+              <input id="reNewPwd" type="password" class="form-control">
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary changePwdBtn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 修改密码 -->
+
+<header id="header">
+	<ul id="menu">
+		<li id="guide" class="line-trigger">
+			<div class="line-wrap">
+				<div class="line top"></div>
+				<div class="line center"></div>
+				<div class="line bottom"></div>
+			</div>
+		</li>
+		<li id="logo" class="hidden-xs">
+			<a href="index.html">
+				<img src="resources/images/logo.png"/>
+			</a>
+			<span id="system_title">客户关系管理系统</span>
+		</li>
+		<li class="pull-right">
+			<ul class="hi-menu">
+				<!-- 搜索 -->
+				<li class="dropdown">
+					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
+						<i class="him-icon zmdi zmdi-search"></i>
+					</a>
+					<ul class="dropdown-menu dm-icon pull-right">
+						<form id="search-form" class="form-inline">
+							<div class="input-group">
+								<input id="keywords" type="text" name="keywords" class="form-control" placeholder="搜索"/>
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+								</div>
+							</div>
+						</form>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
+						<i class="him-icon zmdi zmdi-dropbox"></i>
+					</a>
+					<ul class="dropdown-menu dm-icon pull-right">
+						<li class="skin-switch">
+							请选择系统主题
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a class="waves-effect switch-systems" href="javascript:;" systemid="1" systemname="zheng-upms-server" systemtitle="客户关系管理系统"><i class="zmdi zmdi-shield-security"></i>绿色</a>
+						</li>
+
+						<li>
+							<a class="waves-effect switch-systems" href="javascript:;" systemid="2" systemname="zheng-cms-admin" systemtitle="客户关系管理系统"><i class="zmdi zmdi-wikipedia"></i>深蓝</a>
+						</li>
+
+						<li>
+							<a class="waves-effect switch-systems" href="javascript:;" systemid="3" systemname="zheng-pay-admin" systemtitle="客户关系管理系统"><i class="zmdi zmdi-paypal-alt"></i>粉色</a>
+						</li>
+
+						<li>
+							<a class="waves-effect switch-systems" href="javascript:;" systemid="4" systemname="zheng-ucenter-home" systemtitle="客户关系管理系统"><i class="zmdi zmdi-account"></i>紫色</a>
+						</li>
+
+						<li>
+							<a class="waves-effect switch-systems" href="javascript:;" systemid="5" systemname="zheng-oss-web" systemtitle="客户关系管理系统"><i class="zmdi zmdi-cloud"></i>天蓝</a>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
+						<i class="him-icon zmdi zmdi-more-vert"></i>
+					</a>
+					<ul class="dropdown-menu dm-icon pull-right">
+						<li class="hidden-xs">
+							<a class="waves-effect" data-ma-action="fullscreen" href="javascript:fullPage();"><i class="zmdi zmdi-fullscreen"></i> 全屏模式</a>
+						</li>
+						<li>
+							<a class="waves-effect" data-ma-action="clear-localstorage" href="javascript:;"><i class="zmdi zmdi-delete"></i> 清除缓存</a>
+						</li>
+						<li>
+              <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-account"></i> 个人资料</a>
+						</li>
+						<li>
+              <a class="waves-effect" href="#change-pwd" role="button" class="btn" data-toggle="modal"><i class="zmdi zmdi-settings"></i> 系统设置</a>
+						</li>
+						<li>
+							<a class="waves-effect exit" href="javascript:;"><i class="zmdi zmdi-run"></i> 退出登录</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</header>
+<section id="main">
+	<!-- 左侧导航区 -->
+	<aside id="sidebar">
+		<!-- 个人资料区 -->
+		<div class="s-profile">
+			<a class="waves-effect waves-light" href="javascript:;">
+				<div class="sp-pic">
+					<img src="resources/images/avatar.jpg"/><!-- 头像 -->
+				</div>
+				<div class="sp-info">
+          <span class="clName"></span>
+					<i class="zmdi zmdi-caret-down"></i>
+				</div>
+			</a>
+			<ul class="main-menu">
+				<li>
+					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-account"></i> 个人资料</a>
+				</li>
+				<!--<li>
+					<a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-face"></i> 隐私管理</a>
+				</li>-->
+				<li>
+          <a class="waves-effect" href="#change-pwd" class="btn" data-toggle="modal"><i class="zmdi zmdi-settings"></i> 系统设置</a>
+				</li>
+				<li>
+					<a class="waves-effect exit" href="javascript:;"><i class="zmdi zmdi-run"></i> 退出登录</a>
+				</li>
+			</ul>
+		</div>
+		<!-- /个人资料区 -->
+
+		<!-- 菜单区 -->
+		<ul class="tree homeTree"></ul>
+		<!-- /菜单区 -->
+
+	</aside>
+	<!-- /左侧导航区 -->
+
+	<section id="content">
+		<div class="content_tab">
+			<div class="tab_left">
+				<a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-left"></i></a>
+			</div>
+			<div class="tab_right">
+				<a class="waves-effect waves-light" href="javascript:;"><i class="zmdi zmdi-chevron-right"></i></a>
+			</div>
+			<ul id="tabs" class="tabs">
+				<li id="tab_home" data-index="home" data-closeable="false" class="cur">
+					<a class="waves-effect waves-light">首页</a>
+				</li>
+			</ul>
+		</div>
+		<div class="content_main">
+			<div id="iframe_home" class="iframe cur">
+				<p><h4>通用用户权限管理系统 <i style="color:#c00">(此站仅为静态页演示)</i></h4></p>
+				<p><b>系统简介</b>：本系统是基于RBAC授权和基于用户授权的细粒度权限控制通用平台，并提供单点登录、会话管理和日志管理。接入的系统可自由定义组织、角色、权限、资源等。</p><br/>
+				<p><h4>系统功能概述：</h4></p>
+				<p><b>系统组织管理</b>：系统和组织增加、删除、修改、查询功能。</p>
+				<p><b>用户角色管理</b>：用户和角色增加、删除、修改、查询功能。</p>
+				<p><b>资源权限管理</b>：资源和权限增加、删除、修改、查询功能。</p>
+				<p><b>权限分配管理</b>：提供给角色和用户的权限增加、删除、修改、查询功能。</p>
+				<p><b>单点登录(SSO)</b>：提供统一用户单点登录认证、用户鉴权功能。</p>
+				<p><b>用户会话管理</b>：提供分布式用户会话管理</p>
+				<p><b>操作日志管理</b>：提供记录用户登录、操作等日志。</p><br/>
+				<p><h4>对外接口概述：</h4></p>
+				<p><b>系统组织数据接口</b>、<b>用户角色数据接口</b>、<b>资源权限数据接口</b>、<b>单点登录(SSO)接口</b>、<b>用户鉴权接口</b></p><br/>
+				<p><h4>关于作者</h4></p>
+				<p><b>姓　　名</b>：熊阳</p>
+				<p><b>电子邮箱</b>：webbruin@sina.com</p>
+			</div>
+		</div>
+	</section>
+</section>
+<footer id="footer"></footer>
+
+<script src="resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="resources/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="resources/plugins/BootstrapMenu.min.js"></script>
+<script src="resources/plugins/device.min.js"></script>
+<script src="resources/plugins/fullPage/jquery.fullPage.min.js"></script>
+<script src="resources/plugins/fullPage/jquery.jdirk.min.js"></script>
+<script src="resources/plugins/jquery.cookie.js"></script>
+<script src="resources/js/admin.js"></script>
+<script src="resources/js/jquery.treemenu.js"></script>
+<script src="resources/js/path.js"></script>
+
+<script type="text/javascript">
+  //登录Cookie
+  $(function () {
+    //判断cookie是否为null
+    if($.cookie('CRM') == undefined){
+      window.location.href='login.html';
+    }else{
+      $('.clName').text(`${JSON.parse($.cookie('CRM')).emplName?JSON.parse($.cookie('CRM')).emplName:''} , 您好 ! `);
+    }
+
+    //退出并删除cookie
+    $('.exit').on('click',function (event) {
+      console.log(1);
+      $.cookie('CRM','',{expires:-1,path:'/'});
+      window.location.href='login.html';
+      event.stopPropagation();
+    })
+  })
+
+  //修改密码
+  $(function () {
+    var updatePwd = pathUrl+'updatePwd.do';
+    var userName = JSON.parse($.cookie('CRM')).emplId;
+    var oldPwd = $('#oldPwd');
+    var newPwd = $('#newPwd');
+    var reNewPwd = $('#reNewPwd');
+
+    $('.changePwdBtn').on('click',function (event) {
+      if(newPwd.val() != reNewPwd.val()){
+        alert('两次输入新密码不一致!');
+      }else if(newPwd.val() == oldPwd.val() || reNewPwd.val() == oldPwd.val()){
+        alert('不能与旧密码一致!');
+      }else if(oldPwd.val() != '' && newPwd.val() != '' && reNewPwd.val() != ''){
+        change_password(userName,oldPwd.val(),newPwd.val());
+        $(".changePassWord").submit();
+      }
+      event.stopPropagation();
+    })
+    function change_password(a,b,c) {
+      $.ajax({
+        type:'POST',
+        url:updatePwd,
+        data:{
+          emplId:a,
+          emplPwd1:b,
+          emplPwd2:c,
+        },
+        dataType:'json',
+        success:function (json) {
+          console.log(json);
+          if(json.code == 200){
+            switch (json.result){
+              case 0:{
+                alert('修改失败');
+              }
+                break;
+              case 1:{
+                alert('修改成功');
+              }
+                break;
+              case 2:{
+                alert('原密码输入错误');
+              }
+                break;
+            }
+          }
+        }
+      })
+    }
+  })
+
+		$(function(){
+			var url = pathUrl+'loadMenuTree.do';
+			$.ajax({
+	      type:'POST',
+	      url:url,
+        data:{
+          emplId:JSON.parse($.cookie('CRM')).emplId
+        },
+        dataType:'json',
+	      success:function(res){
+					if(res != null){
+						res.map((arr,index)=>{
+//							 console.log(arr.menuName);
+							 var oneTree = `<li><a href="#">${arr.menuName}</a>${arr.children?`<ul id="level${arr.level}-${index+1}"></ul>`:''}</li>`;
+							 $('.homeTree').append(oneTree);
+							if(arr.children){
+								arr.children.map((arr1,index1)=>{
+//								  console.log('--'+arr1.menuName);
+                  var twoTree = `<li><a href="javascript:Tab.addTab('${arr1.menuName}', '${arr1.menuCode}/${arr1.menuCode}.html');">${arr1.menuName}</a></li>`;
+                  $(`#level${arr.level}-${index+1}`).append(twoTree);
+								})
+							}
+						})
+					}
+          $(".homeTree").treemenu({delay:300}).openActive();
+          $(".homeTree").find('a').on('click',function (event) {
+            $(".homeTree").find('a').removeClass('active');
+            $(this).addClass('active');
+          })
+	      },
+	      error:function(err){
+	        console.log('错误');
+	      }
+	    });
+
+		})
+</script>
+</body>
+</html>

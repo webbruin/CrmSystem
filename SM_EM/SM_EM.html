@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>员工表</title>
+
+  <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
+  <link href="/resources/css/common.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="table-responsive" id="main">
+  <div id="toolbar">
+    <!--<a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a>-->
+    <!--<a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a>-->
+
+    <a class="waves-effect waves-button" id="addEmpl" href="#add-empl" role="button" class="btn" data-toggle="modal"><i class="zmdi zmdi-plus"></i> 新增员工</a>
+    <a class="waves-effect waves-button" id="modEmpl" href="#" role="button" class="btn" data-toggle="modal" onclick="updateAction()"><i class="zmdi zmdi-plus"></i> 编辑员工</a>
+    <a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除员工</a>
+  </div>
+  <table id="table"></table>
+</div>
+<!-- 新增 -->
+<div class="modal fade" id="add-empl" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          新增员工
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline emplForm">
+          <div>
+              <span>
+                <label>员工编号</label>
+                <input id="addEmplCode" type="number" class="form-control" required>
+              </span>
+            <span>
+                <label>员工姓名</label>
+                <input id="addEmplName" type="text" class="form-control" required>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>员工类型</label>
+                <select id="addEmplType" class="form-control select_leixing" required></select>
+              </span>
+            <span>
+                <label>上级员工姓名</label>
+                <select id="addSuperEmplName" class="form-control select_yuangong"></select>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>员工级别</label>
+                <select id="addGrade" class="form-control select_jibie" required></select>
+              </span>
+            <span>
+                <label>所属机构名称</label>
+                <select id="addInstName" class="form-control select_jigou" required></select>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>教育程度</label>
+                <select id="addEducation" class="form-control select_jiaoyu"></select>
+              </span>
+            <span>
+                <label>员工性别</label>
+                <select id="addSex" class="form-control select_xingbie"></select>
+              </span>
+          </div>
+
+          <div>
+              <span>
+                <label>员工生日</label>
+                <input id="addBirthday" type="date" class="form-control">
+              </span>
+            <span>
+                <label>工作日期</label>
+                <input id="addWorkDate" type="date" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>入职日期</label>
+                <input id="addOfficeDate" type="date" class="form-control">
+              </span>
+            <span>
+                <label>家庭地址</label>
+                <input id="addAddr" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>家庭邮编</label>
+                <input id="addPost" type="number" class="form-control">
+              </span>
+            <span>
+                <label>家庭电话</label>
+                <input id="addTel" type="number" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>联系手机</label>
+                <input id="addMobile" type="number" class="form-control" required>
+              </span>
+            <span>
+                <label>电子邮箱</label>
+                <input id="addEmail" type="email" class="form-control">
+              </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Added">保存</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 新增 -->
+
+<!-- 修改 -->
+<div class="modal fade" id="mod-empl" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          修改员工
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline emplForm">
+          <div>
+              <span>
+                <label>员工编号</label>
+                <input id="modEmplCode" type="number" class="form-control" required disabled>
+              </span>
+            <span>
+                <label>员工姓名</label>
+                <input id="modEmplName" type="text" class="form-control" required>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>员工类型</label>
+                <select id="modEmplType" class="form-control select_leixing" required></select>
+              </span>
+            <span>
+                <label>上级员工姓名</label>
+                <select id="modSuperEmplName" class="form-control select_yuangong" disabled></select>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>员工级别</label>
+                <select id="modGrade" class="form-control select_jibie" required></select>
+              </span>
+            <span>
+                <label>所属机构名称</label>
+                <select id="modInstName" class="form-control select_jigou" required></select>
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>教育程度</label>
+                <select id="modEducation" class="form-control select_jiaoyu"></select>
+              </span>
+            <span>
+                <label>员工性别</label>
+                <select id="modSex" class="form-control select_xingbie"></select>
+              </span>
+          </div>
+
+          <div>
+              <span>
+                <label>员工生日</label>
+                <input id="modBirthday" type="date" class="form-control">
+              </span>
+            <span>
+                <label>工作日期</label>
+                <input id="modWorkDate" type="date" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>入职日期</label>
+                <input id="modOfficeDate" type="date" class="form-control">
+              </span>
+            <span>
+                <label>家庭地址</label>
+                <input id="modAddr" type="text" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>家庭邮编</label>
+                <input id="modPost" type="number" class="form-control">
+              </span>
+            <span>
+                <label>家庭电话</label>
+                <input id="modTel" type="number" class="form-control">
+              </span>
+          </div>
+          <div>
+              <span>
+                <label>联系手机</label>
+                <input id="modMobile" type="number" class="form-control" required disabled>
+              </span>
+            <span>
+                <label>电子邮箱</label>
+                <input id="modEmail" type="email" class="form-control">
+              </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Modify">保存</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 修改 -->
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/path.js"></script>
+<script src="js/fn.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>客户表</title>
+
+  <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
+  <link href="/resources/css/common.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="table-responsive" id="main">
+  <div id="toolbar">
+    <a class="waves-effect waves-button" id="clientAudit" href="#" role="button" class="btn" data-toggle="modal" onclick="updateAction()"><i class="zmdi zmdi-plus"></i> 客户审核</a>
+    <a class="waves-effect waves-button" id="changeFinCons" href="#" role="button" class="btn" data-toggle="modal" onclick="deleteAction()"><i class="zmdi zmdi-plus"></i> 变更理财顾问</a>
+  </div>
+  <table id="table"></table>
+</div>
+<!-- 客户审核 -->
+<div class="modal fade" id="client-audit" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline clientForm">
+          <fieldset>
+            <legend>客户信息</legend>
+            <div>
+              <span>
+                <label>姓名 : </label>
+                <i class="desc clientName"></i>
+              </span>
+              <span>
+                <label>手机 : </label>
+                <i class="desc clientProMobile"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>性别 : </label>
+                <i class="desc clientGender"></i>
+              </span>
+              <span>
+                <label>民族 : </label>
+                <i class="desc clientNational"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>出生日期 : </label>
+                <i class="desc clientBirthday"></i>
+              </span>
+              <span>
+                <label>证件类型 : </label>
+                <i class="desc clientCertificateType"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>证件号码 : </label>
+                <i class="desc clientCertificateType"></i>
+              </span>
+              <span>
+                <label>学历 : </label>
+                <i class="desc clientEducation"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>爱好 : </label>
+                <i class="desc clientHobby"></i>
+              </span>
+              <span>
+                <label>住址 : </label>
+                <i class="desc clientAddress"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>从业状况 : </label>
+                <i class="desc clientWorkingState"></i>
+              </span>
+              <span>
+                <label>行业类别 : </label>
+                <i class="desc clientIndustryCategory"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>家庭年收入 : </label>
+                <i class="desc clientFamilyIncome"></i>
+              </span>
+              <span>
+                <label>可投资产 : </label>
+                <i class="desc clientUsableInvest"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>顾问信息</legend>
+            <div>
+              <span>
+                <label>理财顾问 : </label>
+                <i class="desc clientEmplName"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset class="clientChecke">
+            <legend>理财状态</legend>
+            <div>
+              <span>
+                <label>审核状态 : </label>
+                <input name="radio" type="radio" value="1" />通过
+                <input name="radio" type="radio" value="2" />不通过
+              </span>
+              <span>
+                <button type="button" class="btn btn-primary Added">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </span>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 客户审核 -->
+
+<!-- 变更理财顾问 -->
+<div class="modal fade" id="change-fin-cons" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline clientForm">
+          <fieldset>
+            <legend>客户信息</legend>
+            <div>
+              <span>
+                <label>姓名 : </label>
+                <i class="desc counsEmplName"></i>
+              </span>
+              <span>
+                <label>编号 : </label>
+                <i class="desc counsEmplCode"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>手机 : </label>
+                <i class="desc counsMobile"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset class="counsSelect">
+            <legend>变更顾问</legend>
+            <div>
+              <span>
+                <label>顾问选择 : </label>
+                <select class="customerInf form-control select_gwxz"></select>
+              </span>
+              <span>
+                <button type="button" class="btn btn-primary Modify">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 变更理财顾问 -->
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/path.js"></script>
+<script src="js/fn.js"></script>
+
+</body>
+</html>

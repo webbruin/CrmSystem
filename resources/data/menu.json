@@ -1,0 +1,25 @@
+[
+  {
+    "title":"menuType",
+    "content":[
+      {"id":"N","text":"非叶子菜单"},
+      {"id":"L","text":"叶子菜单"}
+    ]
+  },
+  {
+    "title":"menuLevel",
+    "content":[
+      {"id":"1","text":"一级菜单"},
+      {"id":"2","text":"二级菜单"},
+      {"id":"3","text":"三级菜单"}
+    ]
+  },
+  {
+    "title":"menuRightType",
+    "content":[
+      {"id":"1","text":"机构"},
+      {"id":"2","text":"员工"},
+      {"id":"3","text":"角色"}
+    ]
+  }
+]

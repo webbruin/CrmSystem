@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>产品表</title>
+
+  <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
+  <link href="/resources/css/common.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="table-responsive" id="main">
+  <div id="toolbar">
+    <a class="waves-effect waves-button" id="addProd" href="#add-prod" role="button" class="btn" data-toggle="modal"><i class="zmdi zmdi-plus"></i> 新增产品</a>
+    <a class="waves-effect waves-button" id="modProd" href="#" role="button" class="btn" data-toggle="modal" onclick="updateAction()"><i class="zmdi zmdi-plus"></i> 编辑产品</a>
+    <a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除产品</a>
+  </div>
+  <table id="table"></table>
+</div>
+<!-- 新增 -->
+<div class="modal fade" id="add-prod" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          产品新增
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline prodForm">
+          <div>
+            <span>
+              <label>产品名称</label>
+              <input id="addProdName" type="text" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>产品期限</label>
+              <input id="addProdLimit" type="number" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>期限类型</label>
+              <select id="addLimitType" class="form-control select_cplx" required></select>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>预期收益率</label>
+              <input id="addExpectedYield" type="number" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>还款方式</label>
+              <select id="addRepaymentType" class="form-control select_hkfs" required></select>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Added">保存</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 新增 -->
+
+<!-- 修改 -->
+<div class="modal fade" id="mod-prod" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">
+          产品修改
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline prodForm">
+          <div>
+            <span>
+              <label>产品名称</label>
+              <input id="modProdName" type="text" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>产品期限</label>
+              <input id="modProdLimit" type="number" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>期限类型</label>
+              <select id="modLimitType" class="form-control select_cplx" required></select>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>预期收益率</label>
+              <input id="modExpectedYield" type="number" class="form-control" required>
+            </span>
+          </div>
+          <div>
+            <span>
+              <label>还款方式</label>
+              <select id="modRepaymentType" class="form-control select_hkfs" required></select>
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> <button type="button" class="btn btn-primary Modify">保存</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 修改 -->
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/path.js"></script>
+<script src="js/fn.js"></script>
+
+</body>
+</html>

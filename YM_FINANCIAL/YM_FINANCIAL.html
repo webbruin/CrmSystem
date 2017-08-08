@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>理财表</title>
+
+  <link href="/resources/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+  <link href="/resources/plugins/select2/css/select2.min.css" rel="stylesheet"/>
+
+  <link href="/resources/css/common.css" rel="stylesheet"/>
+  <link href="/resources/css/mask.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="table-responsive" id="main">
+  <div id="toolbar">
+    <a class="waves-effect waves-button" id="finAudit" href="#" role="button" class="btn" data-toggle="modal" onclick="updateAction()"><i class="zmdi zmdi-plus"></i> 理财审核</a>
+    <a class="waves-effect waves-button" id="finDetail" href="#" role="button" class="btn" data-toggle="modal" onclick="detailAction()"><i class="zmdi zmdi-plus"></i> 详情</a>
+  </div>
+  <table id="table"></table>
+</div>
+
+<!--遮罩-->
+<div class="windowImage">
+  <span>×</span>
+  <div></div>
+</div>
+
+<!-- 理财审核 -->
+<div class="modal fade" id="fin-audit" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline finanForm">
+          <fieldset>
+            <legend>客户信息</legend>
+            <div>
+              <span>
+                <label>姓名 : </label>
+                <i class="desc manageName"></i>
+              </span>
+              <span>
+                <label>手机 : </label>
+                <i class="desc manageMobile"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>证件类型 : </label>
+                <i class="desc manageCertificateType"></i>
+              </span>
+              <span>
+                <label>证件号码 : </label>
+                <i class="desc manageCertificateNo"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>产品信息</legend>
+            <div>
+              <span>
+                <label>产品名称 : </label>
+                <i class="desc manageProductName"></i>
+              </span>
+              <span>
+                <label>产品期限 : </label>
+                <i class="desc manageProductLimit"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>期限类型 : </label>
+                <i class="desc managePimitType"></i>
+              </span>
+              <span>
+                <label>预期收益率 : </label>
+                <i class="desc manageExpectedYield"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>还款方式 : </label>
+                <i class="desc manageRepaymentType"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>理财信息</legend>
+            <div>
+              <span>
+                <label>投资金额 : </label>
+                <i class="desc manageInvestmentAmount"></i>
+              </span>
+              <span>
+                <label>投资日期 : </label>
+                <i class="desc manageInvestmentDate"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>到期日期 : </label>
+                <i class="desc manageMaturityDate"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>回款信息</legend>
+            <div>
+              <span>
+                <label>开户人姓名 : </label>
+                <i class="desc manageAccountName"></i>
+              </span>
+              <span>
+                <label>银行卡账号 : </label>
+                <i class="desc manageAccountNo"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>开户银行 : </label>
+                <i class="desc manageAccountBank"></i>
+              </span>
+              <span>
+                <label>开户支行 : </label>
+                <i class="desc manageBranchBank"></i>
+              </span>
+            </div>
+          </fieldset>
+          <section class="duandian1"></section>
+          <br />
+          <br />
+          <fieldset class="auditImage">
+            <legend>借款协议</legend>
+            <b></b>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset class="otherFiles">
+            <legend>其他文件</legend>
+            <b></b>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset class="manageChecke">
+            <legend>理财状态</legend>
+            <div>
+              <span>
+                <label>审核状态 : </label>
+                <input name="ckecked1" type="radio" value="2" />通过
+                <input name="ckecked1" type="radio" value="3" />不通过
+              </span>
+              <span>
+                <button type="button" class="btn btn-primary Added">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 理财审核 -->
+
+<!-- 详情 -->
+<div class="modal fade" id="fin-detail" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" class="form-inline finanForm">
+          <fieldset>
+            <legend>客户信息</legend>
+            <div>
+              <span>
+                <label>姓名 : </label>
+                <i class="desc manageName"></i>
+              </span>
+              <span>
+                <label>手机 : </label>
+                <i class="desc manageMobile"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>证件类型 : </label>
+                <i class="desc manageCertificateType"></i>
+              </span>
+              <span>
+                <label>证件号码 : </label>
+                <i class="desc manageCertificateNo"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>产品信息</legend>
+            <div>
+              <span>
+                <label>产品名称 : </label>
+                <i class="desc manageProductName"></i>
+              </span>
+              <span>
+                <label>产品期限 : </label>
+                <i class="desc manageProductLimit"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>期限类型 : </label>
+                <i class="desc managePimitType"></i>
+              </span>
+              <span>
+                <label>预期收益率 : </label>
+                <i class="desc manageExpectedYield"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>还款方式 : </label>
+                <i class="desc manageRepaymentType"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>理财信息</legend>
+            <div>
+              <span>
+                <label>投资金额 : </label>
+                <i class="desc manageInvestmentAmount"></i>
+              </span>
+              <span>
+                <label>投资日期 : </label>
+                <i class="desc manageInvestmentDate"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>到期日期 : </label>
+                <i class="desc manageMaturityDate"></i>
+              </span>
+            </div>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset>
+            <legend>回款信息</legend>
+            <div>
+              <span>
+                <label>开户人姓名 : </label>
+                <i class="desc manageAccountName"></i>
+              </span>
+              <span>
+                <label>银行卡账号 : </label>
+                <i class="desc manageAccountNo"></i>
+              </span>
+            </div>
+            <div>
+              <span>
+                <label>开户银行 : </label>
+                <i class="desc manageAccountBank"></i>
+              </span>
+              <span>
+                <label>开户支行 : </label>
+                <i class="desc manageBranchBank"></i>
+              </span>
+            </div>
+          </fieldset>
+          <section class="duandian2"></section>
+          <br />
+          <br />
+          <fieldset class="auditImage">
+            <legend>借款协议</legend>
+            <b></b>
+          </fieldset>
+          <br />
+          <br />
+          <fieldset class="otherFiles">
+            <legend>其他文件</legend>
+            <b></b>
+          </fieldset>
+          <br />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- 详情 -->
+
+<script src="/resources/plugins/jquery.1.12.4.min.js"></script>
+<script src="/resources/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/resources/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/resources/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/resources/plugins/select2/js/select2.min.js"></script>
+<script src="/resources/js/common.js"></script>
+<script src="/resources/js/path.js"></script>
+<script src="js/fn.js"></script>
+
+</body>
+</html>
